@@ -5,7 +5,8 @@ export default function SearchBar() {
 		<input
 			type="text"
 			placeholder="Search input"
-			className={styles.input}
+			className={styles.searchInput}
+			aria-label="Search"
 		/>
 	);
 }

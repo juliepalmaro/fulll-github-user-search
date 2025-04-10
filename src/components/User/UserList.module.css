@@ -1,10 +1,10 @@
-.list {
+.userList {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 	gap: 25px;
 	border: 1px solid;
 	padding: 10px;
-	max-height: 400px;
+	max-height: 350px;
 	overflow-y: auto;
 }

@@ -5,24 +5,3 @@
 	text-align: center;
 	margin-top: 0;
 }
-
-.actions {
-	margin: 32px 16px;
-	text-align: left;
-	font-size: 0.7rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.count {
-	font-weight: bold;
-	margin-left: 3px;
-}
-
-.buttonIcon {
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
-	margin-left: 12px;
-}

@@ -1,4 +1,4 @@
-.item {
+.userItem {
 	position: relative;
 	width: 150px;
 	text-align: center;
@@ -13,7 +13,7 @@
 	border-radius: 50%;
 }
 
-.checkbox {
+.userCheckbox {
 	position: absolute;
 	top: 15px;
 	left: 15px;
