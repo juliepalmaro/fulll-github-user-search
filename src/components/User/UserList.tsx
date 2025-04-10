@@ -8,6 +8,7 @@ export default function UserList({ users }: { users: User[] }) {
 			{users.map((user) => (
 				<UserItem key={user.id} user={user} />
 			))}
+			{users.length === 0 && <p>No user found</p>}
 		</div>
 	);
 }
