@@ -1,8 +1,11 @@
 .searchInput {
 	background-color: #d5d5d5;
 	text-align: center;
+	justify-content: center;
 	height: 40px;
+	min-height: 40px;
 	border-radius: 5px;
 	border: 0;
 	width: 300px;
+	margin: 0 auto;
 }

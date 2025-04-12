@@ -1,7 +1,20 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
 .title {
 	background-color: gray;
 	height: 64px;
 	line-height: 64px;
 	text-align: center;
 	margin-top: 0;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+	margin-top: 10px;
+	text-align: center;
 }

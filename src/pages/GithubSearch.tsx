@@ -15,8 +15,9 @@ export default function GithubSearch() {
 
 	useEffect(() => {
 		// filter text empty
-		if (!filterText) {
+		if (filterText.length === 0) {
 			setUsers([]);
+			setError(null);
 			return;
 		}
 
@@ -25,10 +26,10 @@ export default function GithubSearch() {
 			const getData = async () => {
 				setError(null);
 				try {
-					const result = await getUsers(filterText);
+					const result = await getUsers(filterText, setError);
 					setUsers(result);
 				} catch (err) {
-					setError('Error when loading users : ');
+					setError(err.message || 'Error when loading users');
 				} finally {
 					setIsLoading(false);
 				}
@@ -39,7 +40,7 @@ export default function GithubSearch() {
 	}, [filterText]);
 
 	return (
-		<>
+		<div className={styles.container}>
 			<p className={styles.title}>Github Search</p>
 			<SearchBar
 				filterText={filterText}
@@ -47,7 +48,8 @@ export default function GithubSearch() {
 			/>
 			<Actions />
 			{isLoading && <Spinner />}
+			{error && <p className={styles.error}>{error}</p>}
 			<UserList users={users} />
-		</>
+		</div>
 	);
 }
