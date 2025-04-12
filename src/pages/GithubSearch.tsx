@@ -5,33 +5,33 @@ import { User } from '../types/userType';
 import Actions from '../components/Actions/Actions';
 import { useEffect, useState } from 'react';
 import { getUsers } from '../services/userService';
+import Spinner from '../components/Spinner/Spinner';
 
 export default function GithubSearch() {
 	const [filterText, setFilterText] = useState('');
 	const [users, setUsers] = useState<User[]>([]);
 	const [error, setError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		// filter text empty
-		if (!filterText.trim()) {
+		if (!filterText) {
 			setUsers([]);
 			return;
 		}
 
+		setIsLoading(true);
 		const timeoutId = setTimeout(() => {
 			const getData = async () => {
-				// setLoading(true);
 				setError(null);
-
 				try {
 					const result = await getUsers(filterText);
 					setUsers(result);
 				} catch (err) {
 					setError('Error when loading users : ');
+				} finally {
+					setIsLoading(false);
 				}
-				// finally {
-				// 	setLoading(false);
-				// }
 			};
 			getData();
 		}, 500);
@@ -46,6 +46,7 @@ export default function GithubSearch() {
 				onFilterTextChange={setFilterText}
 			/>
 			<Actions />
+			{isLoading && <Spinner />}
 			<UserList users={users} />
 		</>
 	);

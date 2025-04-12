@@ -1,7 +1,7 @@
 import { User } from '../types/userType';
 
 export const getUsers = async (query: string): Promise<User[]> => {
-	if (!query.trim()) return [];
+	if (!query) return [];
 	try {
 		const response = await fetch(
 			`https://api.github.com/search/users?q=${query}`
