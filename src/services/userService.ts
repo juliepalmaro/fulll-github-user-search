@@ -81,7 +81,7 @@ export const duplicateUsers = (
 	const selectedUsers = users.filter((user) => selectedIds.has(user.id));
 	const duplicatedUsers = selectedUsers.map((user) => ({
 		...user,
-		id: user.id + Math.floor(Math.random() * 1000),
+		id: user.id + Date.now(),
 	}));
 	return [...users, ...duplicatedUsers];
 };
