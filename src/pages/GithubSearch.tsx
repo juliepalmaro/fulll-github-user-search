@@ -31,7 +31,11 @@ export default function GithubSearch() {
 					const result = await getUsers(filterText, setError);
 					setUsers(result);
 				} catch (err) {
-					setError(err.message || 'Error when loading users');
+					if (err instanceof Error) {
+						setError(err.message);
+					} else {
+						setError('Error when loading users');
+					}
 				} finally {
 					setIsLoading(false);
 				}
