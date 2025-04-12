@@ -52,6 +52,7 @@ export default function GithubSearch() {
 				selectedUsers={selectedUsers}
 				setSelectedUsers={setSelectedUsers}
 				users={users}
+				setUsers={setUsers}
 			/>
 			{isLoading && <Spinner />}
 			{error && <p className={styles.error}>{error}</p>}

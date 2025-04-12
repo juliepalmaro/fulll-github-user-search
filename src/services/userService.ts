@@ -1,3 +1,5 @@
+import { User } from '../types/userType';
+
 export const getUsers = async (
 	searchText: string,
 	setError: React.Dispatch<React.SetStateAction<string | null>>
@@ -70,4 +72,23 @@ export const getUsers = async (
 	}
 
 	throw new Error('Failed to fetch users after multiple retries.');
+};
+
+export const duplicateUsers = (
+	selectedIds: Set<number>,
+	users: User[]
+): User[] => {
+	const selectedUsers = users.filter((user) => selectedIds.has(user.id));
+	const duplicatedUsers = selectedUsers.map((user) => ({
+		...user,
+		id: user.id + Math.floor(Math.random() * 1000),
+	}));
+	return [...users, ...duplicatedUsers];
+};
+
+export const deleteUsers = (
+	selectedIds: Set<number>,
+	users: User[]
+): User[] => {
+	return users.filter((user) => !selectedIds.has(user.id));
 };
