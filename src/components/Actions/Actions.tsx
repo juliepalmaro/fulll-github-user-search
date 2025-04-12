@@ -51,13 +51,17 @@ export default function Actions({
 					ref={checkboxRef}
 					type="checkbox"
 					id="selectAll"
+					data-testid="selectAll"
 					className={styles.selectAll}
 					aria-label="Select or deselect all users"
 					checked={areAllSelected}
 					onChange={handleSelectAllChange}
 				/>
 				<label htmlFor="selectAll">
-					<span className={styles.selectedCount}>
+					<span
+						className={styles.selectedCount}
+						data-testid="selected-count"
+					>
 						{selectedUsers.size}
 					</span>{' '}
 					elements selected

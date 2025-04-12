@@ -9,7 +9,7 @@ export default function UserList({
 }: {
 	users: User[];
 	selectedUsers: Set<number>;
-	setSelectedUsers: (value: Set<number>) => void;
+	setSelectedUsers: React.Dispatch<React.SetStateAction<Set<number>>>;
 }) {
 	return (
 		<div className={styles.userList}>

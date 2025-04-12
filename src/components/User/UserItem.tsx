@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { User } from '../../types/userType';
 import styles from './UserItem.module.css';
 
@@ -9,7 +8,7 @@ export default function UserItem({
 }: {
 	user: User;
 	selectedUsers: Set<number>;
-	setSelectedUsers: (value: Set<number>) => void;
+	setSelectedUsers: React.Dispatch<React.SetStateAction<Set<number>>>;
 }) {
 	const handleCheckboxChange = (userId: number) => {
 		setSelectedUsers((prevSelected) => {
