@@ -2,8 +2,8 @@ export const getUsers = async (
 	searchText: string,
 	setError: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
-	let retries = 5; // Nombre de tentatives avant d'abandonner
-	let delay = 1000; // Délai initial entre les tentatives (en ms)
+	let retries = 5; // Number of tries before leaving
+	let delay = 1000; // Delay between tries
 
 	while (retries > 0) {
 		try {
@@ -11,14 +11,14 @@ export const getUsers = async (
 				`https://api.github.com/search/users?q=${searchText}`
 			);
 
-			// Si la requête est réussie, on la retourne
+			// If successfull request return users
 			if (response.ok) {
 				const data = await response.json();
 				setError(null);
-				return data.items; // Retourner les utilisateurs
+				return data.items;
 			}
 
-			// Si on atteint une erreur de rate limit (code 403 ou 429)
+			// If rate limit error (403 or 429)
 			if (response.status === 403 || response.status === 429) {
 				const rateLimitRemaining = response.headers.get(
 					'x-ratelimit-remaining'
@@ -27,7 +27,7 @@ export const getUsers = async (
 					response.headers.get('x-ratelimit-reset');
 				const retryAfter = response.headers.get('retry-after');
 
-				// Vérifier si l'en-tête retry-after est présent
+				// Verify retry-after header exists
 				if (retryAfter) {
 					const waitTime = parseInt(retryAfter, 10) * 1000; // Temps d'attente en ms
 					setError(
@@ -39,11 +39,11 @@ export const getUsers = async (
 						setTimeout(resolve, waitTime)
 					);
 				}
-				// Vérifier l'en-tête x-ratelimit-reset
+				// Verify x-ratelimit-reset header
 				else if (rateLimitRemaining === '0' && rateLimitReset) {
-					const resetTime = parseInt(rateLimitReset, 10) * 1000; // Convertir en ms
+					const resetTime = parseInt(rateLimitReset, 10) * 1000; // Convert to ms
 					const currentTime = Date.now();
-					const waitTime = resetTime - currentTime; // Attendre jusqu'à la réinitialisation
+					const waitTime = resetTime - currentTime; // Wait until reset
 
 					setError(
 						`Rate limit exceeded, please wait until the limit is reset...`
@@ -52,11 +52,11 @@ export const getUsers = async (
 						setTimeout(resolve, waitTime)
 					);
 				} else {
-					// Si aucune information n'est disponible, on attend au moins 1 minute
+					// If no info, wait at least 1 minute
 					setError(
 						'Rate limit exceeded, please wait for 1 minute...'
 					);
-					await new Promise((resolve) => setTimeout(resolve, 60000)); // 1 minute
+					await new Promise((resolve) => setTimeout(resolve, 60000));
 				}
 			}
 		} catch (error) {
@@ -64,10 +64,9 @@ export const getUsers = async (
 			setError('An error occurred while fetching users.');
 		}
 
-		// On réduit le nombre de tentatives et on augmente le délai entre les tentatives
 		retries -= 1;
-		delay *= 2; // Attente exponentielle entre les tentatives
-		await new Promise((resolve) => setTimeout(resolve, delay)); // Attente avant la prochaine tentative
+		delay *= 2;
+		await new Promise((resolve) => setTimeout(resolve, delay));
 	}
 
 	throw new Error('Failed to fetch users after multiple retries.');

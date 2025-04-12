@@ -10,6 +10,7 @@ import Spinner from '../components/Spinner/Spinner';
 export default function GithubSearch() {
 	const [filterText, setFilterText] = useState('');
 	const [users, setUsers] = useState<User[]>([]);
+	const [selectedUsers, setSelectedUsers] = useState<Set<number>>(new Set());
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -47,10 +48,18 @@ export default function GithubSearch() {
 				filterText={filterText}
 				onFilterTextChange={setFilterText}
 			/>
-			<Actions />
+			<Actions
+				selectedUsers={selectedUsers}
+				setSelectedUsers={setSelectedUsers}
+				users={users}
+			/>
 			{isLoading && <Spinner />}
 			{error && <p className={styles.error}>{error}</p>}
-			<UserList users={users} />
+			<UserList
+				users={users}
+				selectedUsers={selectedUsers}
+				setSelectedUsers={setSelectedUsers}
+			/>
 		</div>
 	);
 }
