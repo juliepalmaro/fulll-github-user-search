@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import binIcon from '../../assets/images/bin.png';
 import duplicateIcon from '../../assets/images/duplicate.png';
-import { User } from '../../types/userType';
 import styles from './Actions.module.css';
 import { deleteUsers, duplicateUsers } from '../../services/userService';
+import { User } from '../../types/userType';
 
 export default function Actions({
 	selectedUsers,
