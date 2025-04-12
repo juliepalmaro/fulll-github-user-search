@@ -16,6 +16,7 @@ export default function GithubSearch() {
 	useEffect(() => {
 		// filter text empty
 		if (filterText.length === 0) {
+			setIsLoading(false);
 			setUsers([]);
 			setError(null);
 			return;
