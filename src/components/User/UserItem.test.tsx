@@ -1,4 +1,3 @@
-// UserItem.test.tsx
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import UserItem from './UserItem';
@@ -20,9 +19,9 @@ describe('UserItem', () => {
 			/>
 		);
 
-		expect(screen.getByText('1')).toBeInTheDocument(); // id
-		expect(screen.getByText('johndoe')).toBeInTheDocument(); // login
-		expect(screen.getByAltText('Avatar')).toBeInTheDocument(); // avatar
+		expect(screen.getByText('1')).toBeInTheDocument();
+		expect(screen.getByText('johndoe')).toBeInTheDocument();
+		expect(screen.getByAltText('Avatar')).toBeInTheDocument();
 	});
 
 	it('should checked the checkbox if the user is selected', () => {
@@ -38,27 +37,29 @@ describe('UserItem', () => {
 		expect(checkbox).toBeChecked();
 	});
 
-	// it('should add user to selected when checkbox is clicked', () => {
-	// 	const mockSetSelectedUsers = vi.fn();
+	it('should toggle user selection when checkbox is clicked', () => {
+		const mockSetSelectedUsers = vi.fn();
 
-	// 	render(
-	// 		<UserItem
-	// 			user={mockUser}
-	// 			selectedUsers={new Set()}
-	// 			setSelectedUsers={mockSetSelectedUsers}
-	// 		/>
-	// 	);
+		render(
+			<UserItem
+				user={mockUser}
+				selectedUsers={new Set()}
+				setSelectedUsers={mockSetSelectedUsers}
+			/>
+		);
 
-	// 	const checkbox = screen.getByRole('checkbox');
-	// 	expect(checkbox).not.toBeChecked();
-	// 	fireEvent.click(checkbox);
-	// 	expect(mockSetSelectedUsers).toHaveBeenCalled();
-	// 	const args = mockSetSelectedUsers.mock.calls[0];
-	// 	console.log(
-	// 		'Arguments passed to mockSetSelectedUsers: ',
-	// 		mockSetSelectedUsers.mock.calls[0]
-	// 	);
+		const checkbox = screen.getByRole('checkbox');
+		expect(checkbox).not.toBeChecked();
+		fireEvent.click(checkbox);
+		expect(mockSetSelectedUsers).toHaveBeenCalled();
+		const updateFn = mockSetSelectedUsers.mock.calls[0][0];
+		expect(typeof updateFn).toBe('function');
+		const result = updateFn(new Set());
+		expect(Array.from(result)).toEqual([1]);
 
-	// 	expect(Array.from(args[0])).toEqual([1]);
-	// });
+		fireEvent.click(checkbox);
+		expect(mockSetSelectedUsers).toHaveBeenCalled();
+		const result2 = updateFn(new Set([1]));
+		expect(Array.from(result2)).toEqual([]);
+	});
 });

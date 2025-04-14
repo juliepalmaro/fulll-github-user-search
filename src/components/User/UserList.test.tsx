@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest'; // pour les tests avec Vitest
-import UserList from './UserList'; // Le composant à tester
+import { describe, it, expect, vi } from 'vitest';
+import UserList from './UserList';
 import { User } from '../../types/userType';
 
 describe('UserList', () => {
